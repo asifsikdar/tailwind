@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tailwind</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+    <!--Regular Datatables CSS-->
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!--Responsive Extension Datatables CSS-->
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+    <style>
+        /*Overrides for Tailwind CSS */
+
+        .dataTables_paginate {
+            margin-right: 50%;
+        }
+
+        .dataTables_length {
+            margin-left: 56%;
+            margin-bottom: 10px;
+        }
+
+        /*Form fields*/
+        .dataTables_wrapper select,
+        .dataTables_wrapper .dataTables_filter input {
+            color: #4a5568;
+            /*text-gray-700*/
+            padding-left: 1rem;
+            /*pl-4*/
+            padding-right: 1rem;
+            /*pl-4*/
+            padding-top: .5rem;
+            /*pl-2*/
+            padding-bottom: .5rem;
+            /*pl-2*/
+            line-height: 1.25;
+            /*leading-tight*/
+            border-width: 2px;
+            /*border-2*/
+            border-radius: .25rem;
+            border-color: #edf2f7;
+            /*border-gray-200*/
+
+            /*bg-gray-200*/
+        }
+
+        /*Row Hover*/
+        table.dataTable.hover tbody tr:hover,
+        table.dataTable.display tbody tr:hover {
+            background-color: #ebf4ff;
+            /*bg-indigo-100*/
+        }
+
+        /*Pagination Buttons*/
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            font-weight: 500;
+
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+
+        /*Pagination Buttons - Current selected */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            color: #fff !important;
+            /*text-white*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            /*bg-indigo-500*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+
+        }
+
+        /*Pagination Buttons - Hover */
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            color: #fff !important;
+            /*text-white*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            background: #FD9B8D !important;
+            /*bg-indigo-500*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+
+        }
+
+        /*Add padding to bottom border */
+        table.dataTable.no-footer {
+            border-bottom: 1px solid #e2e8f0;
+            /*border-b-1 border-gray-300*/
+            margin-top: 0.75em;
+            margin-bottom: 0.75em;
+
+
+        }
+
+        /*Change colour of responsive icon*/
+        table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+            background-color: #667eea !important;
+            /*bg-indigo-500*/
+        }
+    </style>
+    <!-- End-Style -->
+</head>
+
+<body>
+    <main>
+        <div class="relative flex min-h-screen ">
+            <!-- menu bar -->
+            <div class="w-10 mt-20 ml-10 text-gray-900 bg-white">
+                <ul class="menu-button focus:outline-none focus:bg-gray-700">
+                    <li class="item">
+                        <svg class="w-5 mb-5 opacity-40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </li>
+                    <li class="h-10 mt-5 shadow-lg w-11 rounded-xl" style="background-color: #FD9B8D;">
+                        <svg style="color:white" class="w-5 py-3 ml-3" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                    </li>
+
+                    <li class="h-10 mt-5 shadow-lg w-11 rounded-xl">
+                        <i class="py-3 ml-3 far fa-usd-circle" style="color: #A076E8;"></i>
+                    </li>
+
+                    <li class="h-10 mt-5 shadow-lg w-11 rounded-xl">
+                        <i class="py-3 ml-3 fas fa-analytics" style="color: #F4787C;"></i>
+                    </li>
+
+                    <li class="h-10 mt-5 shadow-lg w-11 rounded-xl">
+                        <i class="w-3 py-3 ml-3 fas fa-clipboard-list" style="color: #5CCD92;"></i>
+                    </li>
+                </ul>
+                <!-- logo -->
+
+                <!-- end logo -->
+            </div>
+
+            <div
+                class="absolute inset-y-0 left-0 px-4 space-y-6 text-black transition duration-200 ease-in-out transform -translate-x-full bg-white w-44 sidebar py-7">
+
+
+                <!--dropdown-->
+
+                <!-- style-->
+                <style>
+                    .sidenav {
+                        height: 100%;
+                        width: 180px;
+                        position: fixed;
+                        z-index: 1;
+                        top: 0;
+                        left: 0;
+                        background-color: white;
+                        overflow-x: hidden;
+                        padding-top: 20px;
+                    }
+
+                    /* Style the sidenav links and the dropdown button */
+                    .sidenav a,
+                    .dropdown-btn {
+                        padding: 6px 8px 6px 16px;
+                        text-decoration: none;
+                        font-size: 12px;
+                        color: black;
+                        display: block;
+                        border: none;
+                        background: none;
+                        width: 100%;
+                        text-align: left;
+                        cursor: pointer;
+                        outline: none;
+                    }
+
+                    /* On mouse-over */
+                    .sidenav a:hover,
+                    .dropdown-btn:hover {
+                        color: black;
+                    }
+
+                    a:hover {
+                        background-color: #ededed;
+                    }
+
+                    /* Main content */
+                    .main {
+                        margin-left: 200px;
+                        /* Same as the width of the sidenav */
+                        font-size: 10px;
+                        /* Increased text to enable scrolling */
+                        padding: 0px 10px;
+                    }
+
+                    /* Add an active class to the active dropdown button */
+                    .active {
+                        background-color: #ededed;
+                        color: white;
+                    }
+
+                    /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+                    .dropdown-container {
+                        display: none;
+
+                        padding-left: 8px;
+                    }
+
+                    /* Optional: Style the caret down icon */
+                    .fa-caret-down {
+                        float: right;
+                        padding-right: 8px;
+                    }
+                </style>
+                <!--End style-->
+
+                <div class="sidenav">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 close" style="float:right" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <h3 class="mb-10 ml-5 font-bold ">Themefisher</h3>
+                    <button class="text-xs font-bold dropdown-btn"><i
+                            class="fad fa-home-lg-alt h-8 px-1.5 py-2 rounded-md shadow-lg w-7"
+                            style="background-color: #FD9B8D; color: white;"></i> Company Profiles
+                        <i class="mt-2 fa fa-caret-down"></i>
+                    </button>
+                    <div class="font-bold opacity-50 dropdown-container">
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Themefisher</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Get-hugo</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Sitepines</a>
+                    </div>
+
+
+                    <button class="mt-5 font-bold dropdown-btn"><i
+                            class="h-8 px-1.5 py-2 rounded-md shadow-lg w-7 fas fa-analytics"
+                            style="color: #F4787C;"></i>
+                        Employee profiles
+                        <i class="mt-2 fa fa-caret-down"></i>
+                    </button>
+
+                    <div class="font-bold opacity-50 dropdown-container">
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 1</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 2</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 3</a>
+                    </div>
+
+                    <button class="mt-5 font-bold dropdown-btn"><i
+                            class=" h-8 px-1.5 py-2 rounded-md shadow-lg w-7 far fa-usd-circle"
+                            style="color: #A076E8;"></i> Income
+                        Details
+                        <i class="mt-2 fa fa-caret-down"></i>
+                    </button>
+                    <div class="font-bold opacity-50 dropdown-container">
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 1</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 2</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 3</a>
+                    </div>
+
+                    <button class="mt-5 font-bold dropdown-btn"> <i
+                            class="h-8 px-1.5 py-2 rounded-md shadow-lg w-7 fas fa-clipboard-list "
+                            style="color: #5CCD92;"></i>
+                        Expense Details
+                        <i class="mt-2 fa fa-caret-down"></i>
+                    </button>
+                    <div class="font-bold opacity-50 dropdown-container">
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 1</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 2</a>
+                        <a href="#"><i class=" fas fa-circle" style="color: #FD9B8D;"></i> Link 3</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--End-dropdown-->
+
+            <!-- content -->
+            <!--Container-->
+            <div class="container w-full mx-auto mt-10 leading-normal tracking-wider text-gray-900 bg-white-100">
+                <!-- Data-Table -->
+                <div class="px-10 mx-auto md:w-62 xl:w-62">
+
+                    <!--Title-->
+
+                    <!--Card-->
+                    <div id='recipients' class="p-8 mt-5 bg-white rounded shadow-lg">
+
+                        <h3>Employee Salary</h3>
+                        <button class="">Add<i class="far fa-plus"></i></button>
+                        <table id="example" class="mt-5 stripe hover ml-200px"
+                            style="width:100%; padding-top: 1em;  padding-bottom: 1em; background-color: #ededed;">
+
+                            <thead>
+                                <tr>
+                                    <th data-priority="1">ID NO</th>
+                                    <th data-priority="2">Employee Name</th>
+                                    <th data-priority="3">Designation</th>
+                                    <th data-priority="4">Joining Date</th>
+                                    <th data-priority="5">Salary Status</th>
+                                    <th data-priority="6">Date Of Payment</th>
+                                    <th data-priority="7">Salary Amount</th>
+                                    <th data-priority="8">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>653483</td>
+                                    <td>Jose Green</td>
+                                    <td>Edinburgh</td>
+                                    <td>2011/04/25</td>
+                                    <td>
+                                        <button class="w-20 rounded "
+                                            style="background-color: #FCB630; color: white;">Pending</button>
+                                    </td>
+                                    <td>05/08/2020</td>
+                                    <td>$320,800</td>
+                                    <td>
+                                        <i class="fal fa-trash-alt"></i>&nbsp;
+                                        <i class="fal fa-edit"></i>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>653483</td>
+                                    <td>Jose Green</td>
+                                    <td>Edinburgh</td>
+                                    <td>2011/04/25</td>
+                                    <td>
+                                        <button class="w-20 rounded "
+                                            style="background-color: #F45C5C; color: white;">Due</button>
+                                    </td>
+                                    <td>08/11/2020</td>
+                                    <td>$320,800</td>
+                                    <td>
+                                        <i class="fal fa-trash-alt"></i>&nbsp;
+                                        <i class="fal fa-edit"></i>
+
+                                    </td>
+                                </tr>
+
+                                <!-- Rest of your data (refer to https://datatables.net/examples/server_side/ for server side processing)-->
+
+                                <tr>
+                                    <td>745674</td>
+                                    <td>Walter Ellis</td>
+                                    <td>New York</td>
+                                    <td>2011/01/25</td>
+                                    <td>
+                                        <button class="w-20 rounded "
+                                            style="background-color: #40BE62; color: white;">Paid</button>
+                                    </td>
+                                    <td>12/02/2000</td>
+                                    <td>$112,000</td>
+                                    <td>
+                                        <i class="fal fa-trash-alt"></i>&nbsp;
+                                        <i class="fal fa-edit"></i>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>12434</td>
+                                    <td>Alex Hart</td>
+                                    <td>New York</td>
+                                    <td>2011/01/25</td>
+                                    <td>
+                                        <button class="w-20 rounded "
+                                            style="background-color: #40BE62; color: white;">Paid</button>
+                                    </td>
+                                    <td>01/01/2020</td>
+                                    <td>$112,000</td>
+                                    <td>
+                                        <i class="fal fa-trash-alt"></i>&nbsp;
+                                        <i class="fal fa-edit"></i>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>57684</td>
+                                    <td>Dorothy Garrett</td>
+                                    <td>New York</td>
+                                    <td>2011/01/25</td>
+                                    <td>
+                                        <button class="w-20 rounded "
+                                            style="background-color: #F45C5C; color: white;">Due</button>
+                                    </td>
+                                    <td>12/11/2020</td>
+                                    <td>$112,000</td>
+                                    <td>
+                                        <i class="fal fa-trash-alt"></i>&nbsp;
+                                        <i class="fal fa-edit"></i>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                    <!--/Card-->
+
+                </div>
+                <!--/container-->
+
+
+                <!-- End-DataTable -->
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+
+
+    <!-- sidebar -->
+    <script>
+        const btn = document.querySelector('.menu-button');
+        const sidebar = document.querySelector('.sidebar');
+        const margin = document.querySelector('.container')
+        btn.addEventListener('click', () => {
+
+            sidebar.classList.toggle('-translate-x-full');
+
+        })
+
+        const b = document.querySelector('.close');
+        const sidebars = document.querySelector('.sidebar');
+        b.addEventListener('click', () => {
+            sidebars.classList.toggle('-translate-x-full');
+        })
+    </script>
+
+
+
+
+    <!-- End sidebar -->
+    <!-- float-right -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $('.mb-5 ').on('click', function () {
+            $(".mx-auto").css("margin-left", "50px");
+        })
+    </script>
+
+    <script>
+        $('.close').on('click', function () {
+            $(".mx-auto").css("margin-left", "0px");
+        })
+    </script>
+
+    <!-- Dropdown -->
+    <script>
+        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
+    <!--End Dropdown -->
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!--Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#example').DataTable({
+                    responsive: true
+                })
+                .columns.adjust()
+                .responsive.recalc();
+        });
+    </script>
+
+    <!-- End Datatable -->
+</body>
+
+</html>
